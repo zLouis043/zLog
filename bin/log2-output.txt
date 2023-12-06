@@ -1,0 +1,3 @@
+6/12/2023 13:10:19 | main @ D:\zLog\main.c:12 | [DEBUG] > Hello World!
+6/12/2023 13:10:25 | main @ D:\zLog\main.c:12 | [DEBUG] > Hello World!
+6/12/2023 13:10:42 | main @ D:\zLog\main.c:12 | [DEBUG] > Hello World!

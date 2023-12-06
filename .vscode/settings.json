@@ -1,0 +1,15 @@
+{
+    "cSpell.words": [
+        "fzprintz",
+        "zflog",
+        "zlog",
+        "zlogger",
+        "zprintz"
+    ],
+    "files.associations": {
+        "varargs.h": "c",
+        "stdarg.h": "c",
+        "stdio.h": "c",
+        "stdint.h": "c"
+    }
+}
