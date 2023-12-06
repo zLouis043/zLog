@@ -57,3 +57,17 @@ Output > main @ C:zLog\main.c:14 | [INFO] > zlogger > Hello World!
          main @ C:zLog\main.c:16 | [ERROR] > zlogger > Hello World!  
          main @ C:zLog\main.c:17 | [FATAL] > zlogger > Hello World! 
 ```
+### Format Specifiers
+
+| Format Argument | What it does |
+|-----------------|--------------|
+|      {D}        | Print the day | 
+|      {M}        | Print the month. | 
+|      {Y}        | Print the year. | 
+|      {h}        | Print the hour. | 
+|      {m}        | Print the minute. | 
+|      {s}        | Print the second. | 
+|      {f}        | Print the function where the log has been called. | 
+|      {l}        | Print the location where the log has been called. | 
+|      {n}        | Print the name given to the logger. |
+|      {t}        | Print the tag of the log level. |
