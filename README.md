@@ -50,10 +50,10 @@ int main(void){
    return 0; 
 }
 
-Output > 6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
-         6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:14 | [DEBUG] > Hello World!
-         6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:14 | [TRACE] > Hello World!
-         6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:15 | [WARNING] > Hello World!
-         6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:16 | [ERROR] > Hello World!  
-         6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:17 | [FATAL] > Hello World! 
+Output > 6/12/2023 16:56:29 | main @ C:zLog\main.c:14 | [INFO] > Hello World!
+         6/12/2023 16:56:29 | main @ C:zLog\main.c:14 | [DEBUG] > Hello World!
+         6/12/2023 16:56:29 | main @ C:zLog\main.c:14 | [TRACE] > Hello World!
+         6/12/2023 16:56:29 | main @ C:zLog\main.c:15 | [WARNING] > Hello World!
+         6/12/2023 16:56:29 | main @ C:zLog\main.c:16 | [ERROR] > Hello World!  
+         6/12/2023 16:56:29 | main @ C:zLog\main.c:17 | [FATAL] > Hello World! 
 ```
