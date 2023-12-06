@@ -36,9 +36,9 @@ $ ./bar.bat
 
 int main(void){
 
-   zlog_init();
+   zlog_init("zlogger");
 
-   zlog.set_flags(ZLOG_ALL | ZLOG_DEBUG);
+   zlog.set_pattern("{f} @ {l} | {t} > {n} > ");
 
    zlog_info("Hello World!\n");
    zlog_debug("Hello World!\n");
@@ -50,10 +50,10 @@ int main(void){
    return 0; 
 }
 
-Output > 6/12/2023 16:56:29 | main @ C:zLog\main.c:14 | [INFO] > Hello World!
-         6/12/2023 16:56:29 | main @ C:zLog\main.c:14 | [DEBUG] > Hello World!
-         6/12/2023 16:56:29 | main @ C:zLog\main.c:14 | [TRACE] > Hello World!
-         6/12/2023 16:56:29 | main @ C:zLog\main.c:15 | [WARNING] > Hello World!
-         6/12/2023 16:56:29 | main @ C:zLog\main.c:16 | [ERROR] > Hello World!  
-         6/12/2023 16:56:29 | main @ C:zLog\main.c:17 | [FATAL] > Hello World! 
+Output > main @ C:zLog\main.c:14 | [INFO] > zlogger > Hello World!
+         main @ C:zLog\main.c:14 | [DEBUG] > zlogger > Hello World!
+         main @ C:zLog\main.c:14 | [TRACE] > zlogger > Hello World!
+         main @ C:zLog\main.c:15 | [WARNING] > zlogger > Hello World!
+         main @ C:zLog\main.c:16 | [ERROR] > zlogger > Hello World!  
+         main @ C:zLog\main.c:17 | [FATAL] > zlogger > Hello World! 
 ```
