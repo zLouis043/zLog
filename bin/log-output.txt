@@ -53,3 +53,10 @@ Hello World!
 06/12/2023 22:36:14 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
 06/12/2023 22:36:24 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
 06/12/2023 22:36:28 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:37:54 | main @ D:\zLog\zLog\main.c:10 | zlog | [INFO] > Hello World!
+06/12/2023 22:38:12 | main @ D:\zLog\zLog\main.c:10 | zlog | [INFO] > Hello World!
+zlog > Hello World!
+[INFO] > Hello World!
+[INFO] > zlog > Hello World!
+[INFO] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger > Hello World!
