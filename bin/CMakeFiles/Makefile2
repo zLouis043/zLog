@@ -53,10 +53,10 @@ RM = D:\CMAKE\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\zLog
+CMAKE_SOURCE_DIR = D:\zLog\zLog
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\zLog\bin
+CMAKE_BINARY_DIR = D:\zLog\zLog\bin
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/zLog.dir/clean
 CMakeFiles/zLog.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\zLog.dir\build.make CMakeFiles/zLog.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\zLog.dir\build.make CMakeFiles/zLog.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\zLog\bin\CMakeFiles --progress-num=1,2 "Built target zLog"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\zLog\zLog\bin\CMakeFiles --progress-num=1,2 "Built target zLog"
 .PHONY : CMakeFiles/zLog.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/zLog.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\zLog\bin\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\zLog\zLog\bin\CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/zLog.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\zLog\bin\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\zLog\zLog\bin\CMakeFiles 0
 .PHONY : CMakeFiles/zLog.dir/rule
 
 # Convenience name for target.

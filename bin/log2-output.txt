@@ -1,3 +1,17 @@
 6/12/2023 13:10:19 | main @ D:\zLog\main.c:12 | [DEBUG] > Hello World!
 6/12/2023 13:10:25 | main @ D:\zLog\main.c:12 | [DEBUG] > Hello World!
 6/12/2023 13:10:42 | main @ D:\zLog\main.c:12 | [DEBUG] > Hello World!
+06/12/2023 22:22:57 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:23:09 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:24:00 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:31:20 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:31:34 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+[0;33m06[0m/[0m[0;33m12[0m/[0m[0;33m2023[0m [0m[0;33m22[0m:[0m[0;33m31[0m:[0m[0;33m42[0m [0m|[0m [0m[0;35mmain[0m [0m@[0m [0m[0;35mD:\zLog\zLog\main.c:15[0m [0m|[0m [0m[0;35mzlog[0m [0m|[0m [0m[0;33m[DEBUG][0m [0m>[0m [0mHello World!
+06/12/2023 22:33:18 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:33:30 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:33:41 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:35:11 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:35:27 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:36:14 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:36:24 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!
+06/12/2023 22:36:28 | main @ D:\zLog\zLog\main.c:15 | zlog | [DEBUG] > Hello World!

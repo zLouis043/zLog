@@ -1,4 +1,4 @@
-# Install script for directory: D:/zLog
+# Install script for directory: D:/zLog/zLog
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/zLog/bin/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/zLog/zLog/bin/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -10,6 +10,7 @@
         "varargs.h": "c",
         "stdarg.h": "c",
         "stdio.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "zlog.h": "c"
     }
 }

@@ -59,19 +59,17 @@ static const char * log_color[] = {
 */
 
 typedef enum BIT_flags{
-    ZLOG_BIT_TIME = 0,
-    ZLOG_BIT_LOCATION = 1,
-    ZLOG_BIT_FUNCTION = 2,
-    ZLOG_BIT_DEBUG = 3,
-    ZLOG_BIT_USE_COLORS = 4
+    ZLOG_BIT_DEBUG = 0,
+    ZLOG_BIT_USE_COLORS = 1,
+    ZLOG_BIT_CHECK_COLOR = 4
 }LogBitFlags;
 
 /*!  
     bit field that contains the flags for the log system
 
-    0   0   0   0         0        0           0           0 
-                |         |        |           |           |
-                COLORS    DEBUG    FUNCTION    LOCATION    TIME
+    0   0   0       0         0        0           0           0 
+            |       |         |        |           |           |
+            NAME    COLORS    DEBUG    FUNCTION    LOCATION    TIME
 
     ZLOG_TIME = SHOW THE TIME WHEN THE MESSAGE HAS BEEN LOGGED
     ZLOG_LOCATION = SHOW THE FILE LOCATION AND THE LINE WHERE THE MESSAGE HAS BEEN LOGGED
@@ -80,13 +78,28 @@ typedef enum BIT_flags{
     ZLOG_USE_COLORS = LOG THE MESSAGE AND THE OTHER INFORMATIONS WITH COLORS, ONLY ON THE CONSOLE AND NOT THE FILE MODE
 */
 typedef enum flags{
-    ZLOG_TIME = 1 << ZLOG_BIT_TIME,
-    ZLOG_LOCATION = 1 << ZLOG_BIT_LOCATION,
-    ZLOG_FUNCTION = 1 << ZLOG_BIT_FUNCTION,
     ZLOG_DEBUG = 1 << ZLOG_BIT_DEBUG,
     ZLOG_USE_COLORS = 1 << ZLOG_BIT_USE_COLORS,
-    ZLOG_ALL = ZLOG_TIME | ZLOG_LOCATION | ZLOG_FUNCTION | ZLOG_USE_COLORS
+    ZLOG_CHECK_COLOR = 1 << ZLOG_BIT_CHECK_COLOR,
+    ZLOG_ALL = ZLOG_USE_COLORS | ZLOG_DEBUG 
 }LogFlags;
+
+typedef enum {
+    
+    DAY,
+    MONTH,
+    YEAR,
+    HOUR,
+    MINUTE,
+    SECOND,
+    FUNCTION,
+    LOCATION,
+    TAG,
+    PATTER_COUNT
+
+}PatternType;
+
+
 
 /*!
     Struct that contains every bit of information about the log system and its functions
@@ -114,10 +127,12 @@ typedef enum flags{
 */
 typedef struct {
 
+    const char *name;
     LogLevel level;
     uint8_t flags;
     const char * mode;
     FILE* Stream;
+    char * pattern;
     
     void (*set_level)(LogLevel level);
 
@@ -131,6 +146,8 @@ typedef struct {
     void (*set_flags)(LogFlags flags);
     void (*unset_flags)(LogFlags flags);
     void (*flip_flags)(LogFlags flags);
+
+    void (*set_pattern)(char* pattern);
 
 }zlogger;
 
@@ -169,8 +186,15 @@ void zlog_(const char* filename, size_t line, const char* fun_name, const char* 
 */
 
 #define zflog(output_file, ...)         zlog.open_file(output_file); \
+                                        if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){\
+                                            zlog.unset_flags(ZLOG_USE_COLORS);\
+                                            zlog.set_flags(ZLOG_CHECK_COLOR);\
+                                        }\
                                         zlog_(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__);\
-                                        zlog.close_stream()
+                                        zlog.close_stream();\
+                                        if(CHECK_FLAG(ZLOG_BIT_CHECK_COLOR)){\
+                                            zlog.set_flags(ZLOG_USE_COLORS);\
+                                        }
 
 /*
     Macro that will log a message to the console with a specified level 
@@ -251,8 +275,6 @@ static void zlog_open_file(const char* filename){
 
     zlog.Stream = fp;
 
-    zlog.unset_flags(ZLOG_USE_COLORS);
-
 }
 
 static void zlog_close_stream(){
@@ -261,11 +283,9 @@ static void zlog_close_stream(){
 }
 
 static void zlog_set_output_stream(FILE* Stream){
+
     zlog.Stream = Stream;
 
-    if(zlog.Stream == stderr || zlog.Stream == stdout){
-        zlog.set_flags(ZLOG_USE_COLORS);
-    } 
 }
 
 static void zlog_clear_file(const char* filename){
@@ -275,10 +295,17 @@ static void zlog_clear_file(const char* filename){
 
 }
 
-void zlog_init(){
+static void zlog_set_pattern(char* pattern){
     
+    zlog.pattern = pattern;
+
+}
+
+void zlog_init(const char* log_name){
+
+    zlog.name = log_name;
     zlog.level = L_INFO;
-    zlog.flags = 0;
+    zlog.flags = ZLOG_ALL;
     zlog.Stream = stderr;
     zlog.mode = "a";
 
@@ -292,55 +319,165 @@ void zlog_init(){
     zlog.set_flags = zlog_set_flags;
     zlog.unset_flags = zlog_unset_flags;
     zlog.flip_flags = zlog_flip_flags;
+    zlog.set_pattern = zlog_set_pattern;
+
+    zlog.set_pattern("{D}/{M}/{Y} {h}:{m}:{s} | {f} @ {l} | {n} | {t} > ");
  
 }
 
-static void zlog_time(){
+static void zlog_log_pattern(const char * filename, const char* fun_name, size_t line){
 
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-        fprintf(zlog.Stream, "%s%d%s/%s%d%s/%s%d%s %s%d%s:%s%d%s:%s%d%s | ",    ANSI_COLOR_YELLOW, tm.tm_mday, ANSI_COLOR_RESET,
-                                                                                ANSI_COLOR_YELLOW, tm.tm_mon + 1, ANSI_COLOR_RESET, 
-                                                                                ANSI_COLOR_YELLOW, tm.tm_year + 1900, ANSI_COLOR_RESET, 
-                                                                                ANSI_COLOR_YELLOW, tm.tm_hour, ANSI_COLOR_RESET, 
-                                                                                ANSI_COLOR_YELLOW, tm.tm_min, ANSI_COLOR_RESET, 
-                                                                                ANSI_COLOR_YELLOW, tm.tm_sec, ANSI_COLOR_RESET);
-    }else {
-        fprintf(zlog.Stream, "%d/%d/%d %d:%d:%d | ", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour,tm.tm_min, tm.tm_sec);
+    char * pattern = zlog.pattern;
+
+    while(*pattern){
+
+        if(*pattern == '{'){
+
+            pattern++;
+
+            if(*pattern == 'D'){
+
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                }
+
+                if(tm.tm_mday < 10){
+                    fprintf(zlog.Stream, "0%d", tm.tm_mday);
+                }else{
+                    fprintf(zlog.Stream, "%d", tm.tm_mday);
+                }
+
+            }else if(*pattern == 'M'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                }
+
+                if(tm.tm_mon < 10){
+                    fprintf(zlog.Stream, "0%d", tm.tm_mon + 1);
+                }else{
+                    fprintf(zlog.Stream, "%d", tm.tm_mon + 1);
+                }
+
+            }else if(*pattern == 'Y'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                }
+
+                fprintf(zlog.Stream, "%d", tm.tm_year + 1900);
+
+            }else if(*pattern == 'h'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                }
+
+                if(tm.tm_hour < 10){
+                    fprintf(zlog.Stream, "0%d", tm.tm_hour);
+                }else{
+                    fprintf(zlog.Stream, "%d", tm.tm_hour);
+                }
+
+            }else if(*pattern == 'm'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                }
+
+                if(tm.tm_min < 10){
+                    fprintf(zlog.Stream, "0%d", tm.tm_min);
+                }else{
+                    fprintf(zlog.Stream, "%d", tm.tm_min);
+                }
+
+            }else if(*pattern == 's'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                }
+
+                if(tm.tm_sec < 10){
+                    fprintf(zlog.Stream, "0%d", tm.tm_sec);
+                }else{
+                    fprintf(zlog.Stream, "%d", tm.tm_sec);
+                }
+
+            }else if(*pattern == 'f'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                }
+
+                fprintf(zlog.Stream, "%s", fun_name);
+
+            }else if(*pattern == 'l'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                }
+
+                fprintf(zlog.Stream, "%s:%zu", filename, line);
+
+            }else if(*pattern == 'n'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                }
+
+                fprintf(zlog.Stream, "%s", zlog.name);
+
+            }else if(*pattern == 't'){
+                
+                pattern++;
+
+                if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+                    fprintf(zlog.Stream, "%s", log_color[zlog.level]);
+                }
+
+                fprintf(zlog.Stream, "[%s]", log_tag[zlog.level]);
+
+            }
+
+            if(*pattern != '}'){
+                printf("%c", *pattern);
+                fprintf(stderr, "Invalid pattern: missing closing bracket");
+                exit(1);
+            }
+
+        }else {
+
+            fwrite(pattern, 1, 1, zlog.Stream);
+
+        }
+
+        pattern++;
+
+        if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)) fprintf(zlog.Stream, "%s", ANSI_COLOR_RESET);
+
     }
-}
 
-static void zlog_location(const char* filename, size_t line){
-
-    if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-        fprintf(zlog.Stream, "%s%s%s:%s%zu%s | ", ANSI_COLOR_MAGENTA, filename, ANSI_COLOR_RESET, 
-                                    ANSI_COLOR_MAGENTA, line, ANSI_COLOR_RESET);
-    }else {
-        fprintf(zlog.Stream, "%s:%zu | ", filename, line);
-    }
-
-}
-
-static void zlog_location_and_function(const char* filename, size_t line, const char* fun_name){
-
-    if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-        fprintf(zlog.Stream, "%s%s @ %s%s:%s%zu%s | ", ANSI_COLOR_MAGENTA, fun_name, filename, ANSI_COLOR_RESET, 
-                                    ANSI_COLOR_MAGENTA, line, ANSI_COLOR_RESET);
-    }else {
-        fprintf(zlog.Stream, "%s @ %s:%zu | ", fun_name, filename, line);
-    }
-
-}
-
-static void zlog_function(const char* fun_name){
-
-    if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-        fprintf(zlog.Stream, "%sIn function%s : %s@%s%s | ", ANSI_COLOR_MAGENTA, ANSI_COLOR_RESET , ANSI_COLOR_MAGENTA, fun_name, ANSI_COLOR_RESET);
-    }else {
-       fprintf(zlog.Stream, "In function : @%s | ", fun_name); 
-    }
 }
 
 
@@ -348,24 +485,7 @@ void zlog_(const char * filename, size_t line, const char * fun_name, const char
     
     if(!(CHECK_FLAG(ZLOG_BIT_DEBUG)) && zlog.level == L_DEBUG) return;
 
-    if(CHECK_FLAG(ZLOG_BIT_TIME)){
-        zlog_time();
-    }
-
-    if(CHECK_FLAG(ZLOG_BIT_LOCATION) && CHECK_FLAG(ZLOG_BIT_FUNCTION)){
-        zlog_location_and_function(filename, line, fun_name);
-    }else if(CHECK_FLAG(ZLOG_BIT_LOCATION)){
-        zlog_location(filename, line);
-    }else if(CHECK_FLAG(ZLOG_BIT_FUNCTION)){
-        zlog_function(fun_name);
-    }
-
-    if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){  
-        fprintf(zlog.Stream, "%s[%s] "ANSI_COLOR_RESET"> ", log_color[zlog.level], log_tag[zlog.level]);
-    }else {
-        fprintf(zlog.Stream, "[%s] > ", log_tag[zlog.level]);
-
-    }
+    zlog_log_pattern(filename, fun_name, line);
 
     va_list arg_ptr;
     va_start(arg_ptr, fmt);

@@ -5,9 +5,11 @@
 
 int main(void){
 
-   zlog_init();
+   zlog_init("zlog");
 
-   zlog.set_flags(ZLOG_ALL | !ZLOG_DEBUG);
+   //zlog.unset_flags(ZLOG_USE_COLORS);
+
+   printf("%d\n", zlog.get_flags());
 
    zflog_info("log-output.txt","Hello World!\n");
    zflog_debug("log2-output.txt","Hello World!\n");

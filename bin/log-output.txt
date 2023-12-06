@@ -1,1 +1,55 @@
 6/12/2023 14:47:19 | main @ D:\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 16:56:29 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 20:55:56 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:0:52 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:0:58 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:9:26 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:9:40 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:14:42 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:14:49 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+6/12/2023 21:15:37 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:16:1 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:16:14 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:16:40 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:16:53 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:17:9 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:20:47 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:20:53 | main @ D:\zLog\zLog\main.c:16 | [INFO] > Hello World!
+6/12/2023 21:22:28 | Hello World!
+Hello World!
+Hello World!
+06/06/012/2023 021:042:035 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+[INFO]/012/2023 021:042:046 | main @ D:\zLog\zLog\main.c:12 | [INFO] > Hello World!
+// :: | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/012/2023 021:046:022 | main @  | [INFO] > Hello World!
+06/012/2023 021:046:033 |  @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+  | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+  | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/12/2023 21:53:45 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/12/2023 21:56:44 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/12/2023 21:57:07 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/12/2023 21:57:20 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06//12//2023 22::02::31 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/12/2023 22:02:46 | main @ D:\zLog\zLog\main.c:14 | [INFO] > Hello World!
+06/12/2023 22:15:06 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:15:22 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:15:24 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:20:17 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:21:05 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:21:26 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:21:51 | main @ D:\zLog\zLog\main.c:12 | zlog | [INFO] > Hello World!
+06/12/2023 22:22:57 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:23:09 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:23:42 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:24:00 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:31:20 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:31:34 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+[0;33m06[0m/[0m[0;33m12[0m/[0m[0;33m2023[0m [0m[0;33m22[0m:[0m[0;33m31[0m:[0m[0;33m42[0m [0m|[0m [0m[0;35mmain[0m [0m@[0m [0m[0;35mD:\zLog\zLog\main.c:14[0m [0m|[0m [0m[0;35mzlog[0m [0m|[0m [0m[0;32m[INFO][0m [0m>[0m [0mHello World!
+06/12/2023 22:33:18 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:33:30 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:33:41 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:35:11 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:35:27 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:36:14 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:36:24 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
+06/12/2023 22:36:28 | main @ D:\zLog\zLog\main.c:14 | zlog | [INFO] > Hello World!
