@@ -25,3 +25,12 @@ main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
 09/12/2023 15:38:47 | main @ D:\zLog\zLog\main.c:13 | zlogger | [DEBUG] > Hello World!
 main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!

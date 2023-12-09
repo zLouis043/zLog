@@ -245,15 +245,8 @@ void zlog_(const char* filename, size_t line, const char* fun_name, const char* 
 */
 
 #define zflog(output_file, ...)         zlog.open_file(output_file); \
-                                        if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){\
-                                            zlog.unset_flags(ZLOG_USE_COLORS);\
-                                            zlog.set_flags(ZLOG_CHECK_COLOR);\
-                                        }\
                                         zlog_(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__);\
-                                        zlog.close_stream();\
-                                        if(CHECK_FLAG(ZLOG_BIT_CHECK_COLOR)){\
-                                            zlog.set_flags(ZLOG_USE_COLORS);\
-                                        }
+                                        zlog.close_stream();
 
 /*!
     Macro that will log a message to the console with a specified level
@@ -393,11 +386,20 @@ static void zlog_open_file(const char* filename){
 
     zlog.Stream = fp;
 
+    if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
+        zlog.unset_flags(ZLOG_USE_COLORS);
+        zlog.set_flags(ZLOG_CHECK_COLOR);
+    }
+
 }
 
 static void zlog_close_stream(){
     fclose(zlog.Stream);
     zlog.Stream = stderr;
+
+    if(CHECK_FLAG(ZLOG_BIT_CHECK_COLOR)){
+        zlog.set_flags(ZLOG_USE_COLORS);
+    }
 }
 
 static void zlog_set_output_stream(FILE* Stream){
