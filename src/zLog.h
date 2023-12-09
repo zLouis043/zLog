@@ -209,21 +209,21 @@ void zlog_(const char* filename, size_t line, const char* fun_name, const char* 
 */                            
 
 #define _zflog(output_file, level, ...)     zlog.set_level(level); \
-                                            zflog(output_file, __VA_ARGS__) \
+                                            zflog(output_file, ##__VA_ARGS__) \
                 
-#define zlog_info(...)      _zlog(L_INFO,    __VA_ARGS__)
-#define zlog_debug(...)     _zlog(L_DEBUG,   __VA_ARGS__)
-#define zlog_trace(...)     _zlog(L_TRACE,   __VA_ARGS__)
-#define zlog_warning(...)   _zlog(L_WARNING, __VA_ARGS__)
-#define zlog_error(...)     _zlog(L_ERROR,   __VA_ARGS__)
-#define zlog_fatal(...)     _zlog(L_FATAL,   __VA_ARGS__)
+#define zlog_info(...)      _zlog(L_INFO,    ##__VA_ARGS__)
+#define zlog_debug(...)     _zlog(L_DEBUG,   ##__VA_ARGS__)
+#define zlog_trace(...)     _zlog(L_TRACE,   ##__VA_ARGS__)
+#define zlog_warning(...)   _zlog(L_WARNING, ##__VA_ARGS__)
+#define zlog_error(...)     _zlog(L_ERROR,   ##__VA_ARGS__)
+#define zlog_fatal(...)     _zlog(L_FATAL,   ##__VA_ARGS__)
 
-#define zflog_info(output_file, ...)    _zflog(output_file,  L_INFO,      __VA_ARGS__)
-#define zflog_debug(output_file, ...)   _zflog(output_file,  L_DEBUG,     __VA_ARGS__)
-#define zflog_trace(output_file, ...)   _zflog(output_file,  L_TRACE,     __VA_ARGS__)
-#define zflog_warning(output_file, ...) _zflog(output_file,  L_WARNING,   __VA_ARGS__)
-#define zflog_error(output_file, ...)   _zflog(output_file,  L_ERROR,     __VA_ARGS__)
-#define zflog_fatal(output_file, ...)   _zflog(output_file,  L_FATAL,     __VA_ARGS__)
+#define zflog_info(output_file, ...)    _zflog(output_file,  L_INFO,      ##__VA_ARGS__)
+#define zflog_debug(output_file, ...)   _zflog(output_file,  L_DEBUG,     ##__VA_ARGS__)
+#define zflog_trace(output_file, ...)   _zflog(output_file,  L_TRACE,     ##__VA_ARGS__)
+#define zflog_warning(output_file, ...) _zflog(output_file,  L_WARNING,   ##__VA_ARGS__)
+#define zflog_error(output_file, ...)   _zflog(output_file,  L_ERROR,     ##__VA_ARGS__)
+#define zflog_fatal(output_file, ...)   _zflog(output_file,  L_FATAL,     ##__VA_ARGS__)
 
 #endif /* ZLOG_H_ */
 

@@ -60,3 +60,4 @@ zlog > Hello World!
 [INFO] > zlog > Hello World!
 [INFO] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger > Hello World!
