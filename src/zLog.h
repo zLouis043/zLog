@@ -1,3 +1,50 @@
+/*
+MIT License
+
+Copyright (c) 2023 zLouis043
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+HOW TO USE THE LIBRARY:
+    - Define the library implementation and include the header file:
+        "#define ZLOG_IMPLEMENTATION
+        #include "zlog.h"
+    - Init the logger with the zlog_init() function by giving a name to the logger
+    - Set the pattern if you want by calling the zlog.set_pattern() function and set the pattern with the format 
+    specifiers:
+        - {D} = day
+        - {M} = month
+        - {Y} = year
+        - {h} = hours
+        - {m} = minutes
+        - {s} = seconds
+        - {f} = the function where the log is being called
+        - {l} = the location where the log is being called (the file and the line number)
+        - {n} = the name of the logger
+        - {t} = the tag of the log level 
+    - Use the various log macros for the different log levels and log outputs (console (zlog) or a specific file (zflog))
+    - Set the flags if you want the log messages in the console output have colors with the zlog.set_flags() | zlog.unset_flags() functions
+      with the ZLOG_USE_COLORS flag
+      - Set the flags if you want the debug log messages to be print or not with the zlog.set_flags() | zlog.unset_flags() functions
+      with the ZLOG_DEBUG flag
+*/
+
 #ifndef ZLOG_H_
 #define ZLOG_H_
 
@@ -110,6 +157,7 @@ typedef enum {
                 - "a" to append the message to the file.
                 - "w" to overwrite the file.
     @param Stream the current stream in which the logger is printing the message
+    @param pattern the pattern of the log message 
 
     @param set_level function that sets the log level of the logger
 
@@ -123,7 +171,8 @@ typedef enum {
     @param set_flags function that set the specified flags of the logger
     @param unset_flags function that unset the specified flags of the logger
     @param flip_flags function that flips the value of the specified flags of the logger
-    @
+    
+    @param set_pattern function that sets the pattern of the log message
 */
 typedef struct {
 
@@ -167,7 +216,7 @@ zlogger zlog;
     Function that initialize the logger
 */
 
-void zlog_init();
+void zlog_init(const char* log_name);
 
 /*
     Base function to log a message to the console or a file
@@ -461,8 +510,7 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
             }
 
             if(*pattern != '}'){
-                printf("%c", *pattern);
-                fprintf(stderr, "Invalid pattern: missing closing bracket");
+                fprintf(stderr, ANSI_COLOR_RED"[FATAL]"ANSI_COLOR_RESET" Invalid pattern: missing closing bracket in %s @ %s:%zu", fun_name, filename, line);
                 exit(1);
             }
 

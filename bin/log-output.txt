@@ -61,3 +61,5 @@ zlog > Hello World!
 [INFO] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:12 | [INFO] > zloggermain @ D:\zLog\zLog\main.c:12 | [INFO] > zloggermain @ D:\zLog\zLog\main.c:12 | [INFO] > zloggermain @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger09/12/2023 15:38:47 | main @ D:\zLog\zLog\main.c:12 | zlogger | [INFO] > Hello World!
+main @ D:\zLog\zLog\main.c:12 | [INFO] > zloggermain @ D:\zLog\zLog\main.c:12 | [INFO] > zlogger > Hello World!
