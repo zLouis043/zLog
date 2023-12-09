@@ -206,32 +206,42 @@ typedef struct {
 
 zlogger zlog;
 
-/*
+/*!
     Macro used to check a specific bit mask between the flags 
+    @param flag the flag to check 
 */
 
 #define CHECK_FLAG(flag) (zlog.flags & (1 << flag))
 
-/*
+/*!
     Function that initialize the logger
+    @param log_name The name of the logger
 */
 
 void zlog_init(const char* log_name);
 
-/*
+/*!
     Base function to log a message to the console or a file
+    @param filename the file where the log is being called
+    @param line the line where the log is being called
+    @param fun_name the function where the log is being called
+    @param fmt the string to format and print 
+    @param ... the various args used to format the string 
 */
 
 void zlog_(const char* filename, size_t line, const char* fun_name, const char* fmt, ...);
 
-/*
+/*!
     Macro that will log a message to the console at the current log level defined 
+    @param ... the message to log 
 */
 
 #define zlog(...)                       zlog_(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)   
 
-/*
+/*!
     Macro that will log a message to a file at the current log level defined 
+    @param output_file the file where the log message is being printed
+    @param ... the message to log 
 */
 
 #define zflog(output_file, ...)         zlog.open_file(output_file); \
@@ -245,33 +255,92 @@ void zlog_(const char* filename, size_t line, const char* fun_name, const char* 
                                             zlog.set_flags(ZLOG_USE_COLORS);\
                                         }
 
-/*
-    Macro that will log a message to the console with a specified level 
+/*!
+    Macro that will log a message to the console with a specified level
+    @param level the level of the log 
+    @param ... The message to be logged
 */
 
 #define _zlog(level, ...)   zlog.set_level(level);\
                             zlog.set_output_stream(stderr);\
                             zlog(__VA_ARGS__)
 
-/*
+/*!
     Macro that will log a message to a file with a specified level
+    @param output_file the name of the output file 
+    @param level the level of the log 
+    @param ... The message to be logged
 */                            
 
 #define _zflog(output_file, level, ...)     zlog.set_level(level); \
                                             zflog(output_file, ##__VA_ARGS__) \
-                
+
+/*!
+    Logs to the console the info message
+    @param ... The message to be logged
+*/               
 #define zlog_info(...)      _zlog(L_INFO,    ##__VA_ARGS__)
+/*!
+    Logs to the console the debug message
+    @param ... The message to be logged
+*/  
 #define zlog_debug(...)     _zlog(L_DEBUG,   ##__VA_ARGS__)
+/*!
+    Logs to the console the trace message
+    @param ... The message to be logged
+*/  
 #define zlog_trace(...)     _zlog(L_TRACE,   ##__VA_ARGS__)
+/*!
+    Logs to the console the warning message
+    @param ... The message to be logged
+*/  
 #define zlog_warning(...)   _zlog(L_WARNING, ##__VA_ARGS__)
+/*!
+    Logs to the console the error message
+    @param ... The message to be logged
+*/  
 #define zlog_error(...)     _zlog(L_ERROR,   ##__VA_ARGS__)
+/*!
+    Logs to the console the fatal message
+    @param ... The message to be logged
+*/  
 #define zlog_fatal(...)     _zlog(L_FATAL,   ##__VA_ARGS__)
 
+/*!
+    Logs into the output_file the info message
+    @param output_file the name of the output file 
+    @param ... The message to be logged
+*/
 #define zflog_info(output_file, ...)    _zflog(output_file,  L_INFO,      ##__VA_ARGS__)
+/*!
+    Logs into the output_file the debug message
+    @param output_file the name of the output file 
+    @param ... The message to be logged
+*/
 #define zflog_debug(output_file, ...)   _zflog(output_file,  L_DEBUG,     ##__VA_ARGS__)
+/*!
+    Logs into the output_file the trace message
+    @param output_file the name of the output file 
+    @param ... The message to be logged
+*/
 #define zflog_trace(output_file, ...)   _zflog(output_file,  L_TRACE,     ##__VA_ARGS__)
+/*!
+    Logs into the output_file the warning message
+    @param output_file the name of the output file 
+    @param ... The message to be logged
+*/
 #define zflog_warning(output_file, ...) _zflog(output_file,  L_WARNING,   ##__VA_ARGS__)
+/*!
+    Logs into the output_file the error message
+    @param output_file the name of the output file 
+    @param ... The message to be logged
+*/
 #define zflog_error(output_file, ...)   _zflog(output_file,  L_ERROR,     ##__VA_ARGS__)
+/*!
+    Logs into the output_file the fatal message
+    @param output_file the name of the output file 
+    @param ... The message to be logged
+*/
 #define zflog_fatal(output_file, ...)   _zflog(output_file,  L_FATAL,     ##__VA_ARGS__)
 
 #endif /* ZLOG_H_ */
