@@ -34,3 +34,17 @@ main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
 main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!
+main @ D:\zLog\zLog\main.c:13 | [DEBUG] > zlogger > Hello World!

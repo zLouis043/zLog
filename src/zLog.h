@@ -51,18 +51,6 @@ HOW TO USE THE LIBRARY:
 #include <stdint.h>
 
 /*
- List of ansi colors used by the logger.
-*/
-
-#define ANSI_COLOR_RED     "\x1b[0;31m"
-#define ANSI_COLOR_GREEN   "\x1b[0;32m"
-#define ANSI_COLOR_YELLOW  "\x1b[0;33m"
-#define ANSI_COLOR_BLUE    "\x1b[0;34m"
-#define ANSI_COLOR_MAGENTA "\x1b[0;35m"
-#define ANSI_COLOR_CYAN    "\x1b[0;36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
-/*
     Level of logging.
 */
 
@@ -91,15 +79,49 @@ static const char * log_tag[] = {
 /*
     Look up table for the color of every level of logging
 */
+#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
 
-static const char * log_color[] = {
-    [L_INFO] = ANSI_COLOR_GREEN,
-    [L_DEBUG] = ANSI_COLOR_YELLOW,
-    [L_TRACE] = ANSI_COLOR_CYAN,
-    [L_WARNING] = ANSI_COLOR_YELLOW,
-    [L_ERROR] = ANSI_COLOR_RED,
-    [L_FATAL] = ANSI_COLOR_RED
-};
+    /*
+    List of ansi colors used by the logger.
+    */
+
+    #define ANSI_COLOR_RED     "\x1b[0;31m"
+    #define ANSI_COLOR_GREEN   "\x1b[0;32m"
+    #define ANSI_COLOR_YELLOW  "\x1b[0;33m"
+    #define ANSI_COLOR_BLUE    "\x1b[0;34m"
+    #define ANSI_COLOR_MAGENTA "\x1b[0;35m"
+    #define ANSI_COLOR_CYAN    "\x1b[0;36m"
+    #define ANSI_COLOR_RESET   "\x1b[0m"
+
+    static const char * log_color[] = {
+        [L_INFO] = ANSI_COLOR_GREEN,
+        [L_DEBUG] = ANSI_COLOR_YELLOW,
+        [L_TRACE] = ANSI_COLOR_CYAN,
+        [L_WARNING] = ANSI_COLOR_YELLOW,
+        [L_ERROR] = ANSI_COLOR_RED,
+        [L_FATAL] = ANSI_COLOR_RED
+    };
+#elif _WIN32  
+    #include <Windows.h>
+
+    #define C_Blue             1          
+    #define C_Green            2         
+    #define C_Cyan             3           
+    #define C_Red              4          
+    #define C_Magenta          5                  
+    #define C_White            7          
+    #define C_Yellow           14
+
+    int log_color[] = {
+        [L_INFO] = C_Green,
+        [L_DEBUG] = C_Yellow,
+        [L_TRACE] = C_Cyan,
+        [L_WARNING] = C_Yellow,
+        [L_ERROR] = C_Red,
+        [L_FATAL] = C_Red
+    };
+#endif
+
 
 /*
     Bit position of every flag
@@ -281,6 +303,7 @@ void zlog_(const char* filename, size_t line, const char* fun_name, const char* 
 /*!
     Logs to the console the trace message
     @param ... The message to be logged
+    @hideinitializer
 */  
 #define zlog_trace(...)     _zlog(L_TRACE,   ##__VA_ARGS__)
 /*!
@@ -344,6 +367,13 @@ void zlog_(const char* filename, size_t line, const char* fun_name, const char* 
 #include <stdlib.h>
 #include <time.h>
 #include <stdarg.h>
+
+#if defined _WIN32 
+void set_color(int color){
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),color);
+    return;
+}
+#endif
 
 static uint8_t zlog_get_flag(){
     return zlog.flags;
@@ -463,7 +493,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #elif _WIN32 
+                        set_color(C_Yellow);
+                    #endif
                 }
 
                 if(tm.tm_mday < 10){
@@ -477,7 +511,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #elif _WIN32 
+                        set_color(C_Yellow);
+                    #endif
                 }
 
                 if(tm.tm_mon < 10){
@@ -491,7 +529,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #elif _WIN32 
+                        set_color(C_Yellow);
+                    #endif
                 }
 
                 fprintf(zlog.Stream, "%d", tm.tm_year + 1900);
@@ -501,7 +543,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #elif _WIN32 
+                        set_color(C_Yellow);
+                    #endif
                 }
 
                 if(tm.tm_hour < 10){
@@ -515,7 +561,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #elif _WIN32 
+                        set_color(C_Yellow);
+                    #endif
                 }
 
                 if(tm.tm_min < 10){
@@ -529,7 +579,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_YELLOW);
+                    #elif _WIN32 
+                        set_color(C_Yellow);
+                    #endif
                 }
 
                 if(tm.tm_sec < 10){
@@ -543,7 +597,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                    #elif _WIN32 
+                        set_color(C_Magenta);
+                    #endif
                 }
 
                 fprintf(zlog.Stream, "%s", fun_name);
@@ -553,7 +611,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                    #elif _WIN32 
+                        set_color(C_Magenta);
+                    #endif
                 }
 
                 fprintf(zlog.Stream, "%s:%zu", filename, line);
@@ -563,7 +625,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", ANSI_COLOR_MAGENTA);
+                    #elif _WIN32 
+                        set_color(C_Magenta);
+                    #endif
                 }
 
                 fprintf(zlog.Stream, "%s", zlog.name);
@@ -573,7 +639,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
                 pattern++;
 
                 if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)){
-                    fprintf(zlog.Stream, "%s", log_color[zlog.level]);
+                    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+                        fprintf(zlog.Stream, "%s", log_color[zlog.level]);
+                    #elif _WIN32  
+                        set_color(log_color[zlog.level]);  
+                    #endif
                 }
 
                 fprintf(zlog.Stream, "[%s]", log_tag[zlog.level]);
@@ -581,7 +651,10 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
             }
 
             if(*pattern != '}'){
-                fprintf(stderr, ANSI_COLOR_RED"[FATAL]"ANSI_COLOR_RESET" Invalid pattern: missing closing bracket in %s @ %s:%zu", fun_name, filename, line);
+                set_color(C_Red);
+                fprintf(stderr, "[FATAL]");
+                set_color(C_White);
+                fprintf(stderr, " Invalid pattern: missing closing bracket in %s @ %s:%zu", fun_name, filename, line);
                 exit(1);
             }
 
@@ -593,7 +666,11 @@ static void zlog_log_pattern(const char * filename, const char* fun_name, size_t
 
         pattern++;
 
-        if(CHECK_FLAG(ZLOG_BIT_USE_COLORS)) fprintf(zlog.Stream, "%s", ANSI_COLOR_RESET);
+        #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+            fprintf(zlog.Stream, "%s", ANSI_COLOR_RESET);
+        #elif _WIN32  
+            set_color(C_White);  
+        #endif
 
     }
 

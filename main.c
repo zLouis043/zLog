@@ -16,5 +16,7 @@ int main(void){
    zlog_error("Hello World!\n");
    zlog_fatal("Hello World!\n");
 
+   system("pause");
+
    return 0; 
 }
